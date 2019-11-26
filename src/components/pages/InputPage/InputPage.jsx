@@ -6,9 +6,15 @@ export default class InputPage extends Component {
   getCountriesName = countries => {
     return countries.map(country => country.name);
   };
+  componentDidMount() {
+    this.props.getCountries();
+    console.log("arrayOfCountries", this.props.countries);
+  }
 
   render() {
     const { countries, ...otherProps } = this.props;
+    console.log("countries", countries);
+    console.log("this.props in InputPage", this.props);
     const nameOfCountries = this.getCountriesName(countries);
     return (
       <AutoComplete

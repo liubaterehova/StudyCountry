@@ -9,6 +9,7 @@ function* getCountriesSaga({ payload }) {
         response = yield call([custom, custom.getCountries]);
 
         if (response.data) {
+            console.log("response.data", response.data);
             yield put(types.getCoutriesSuccess({ countries: response.data }));
         }
     } catch (error) {
@@ -16,18 +17,18 @@ function* getCountriesSaga({ payload }) {
     }
 }
 
-function* getHolidaysSaga({ payload }) {
-    yield put(types.getHolidaysSuccess(payload));
-}
+// function* getHolidaysSaga({ payload }) {
+//     yield put(types.getHolidaysSuccess(payload));
+// }
 
-function* getWeathersSaga({ payload }) {
-    yield put(types.getWeathersSuccess(payload));
-}
+// function* getWeathersSaga({ payload }) {
+//     yield put(types.getWeathersSuccess(payload));
+// }
 
 const customSagas = [
-    takeEvery(types.getCountries, getCountriesSaga),
-    takeEvery(types.getHolidays, getHolidaysSaga),
-    takeEvery(types.getWeathers, getWeathersSaga)
+    takeEvery(types.getCountries, getCountriesSaga)
+    // takeEvery(types.getHolidays, getHolidaysSaga),
+    // takeEvery(types.getWeathers, getWeathersSaga)
 ];
 
 export default customSagas;
