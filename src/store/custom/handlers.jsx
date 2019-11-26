@@ -12,7 +12,6 @@ export const processFailure = (state, { payload }) => ({
 });
 
 export const getCountries = (state, { payload }) => {
-  console.log("getCountriesinHandlers", state);
   return {
     ...state,
     isLoading: true
@@ -20,24 +19,25 @@ export const getCountries = (state, { payload }) => {
 };
 
 export const getCountriesSuccess = (state, { payload }) => {
-  console.log("stateinInitialState", state);
-  console.log("payload.countries", payload.countries);
   return {
     ...state,
     isLoading: false,
     countries: payload.countries
   };
 };
-export const getWeathersSuccess = (state, { payload }) => ({
-  ...state,
-  isLoading: false,
-  weathers: payload.weathers
-});
-
 export const getWeathers = (state, { payload }) => ({
   ...state,
   isLoading: true
 });
+export const getWeathersSuccess = (state, { payload }) => {
+  console.log("stateinInitialState", state);
+  console.log("handlersWeatherPayload", payload);
+  return {
+    ...state,
+    isLoading: false,
+    weathers: payload.weathers
+  };
+};
 
 export const getHolidaysSuccess = (state, { payload }) => ({
   ...state,

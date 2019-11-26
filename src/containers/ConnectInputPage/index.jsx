@@ -7,14 +7,16 @@ import InputPage from "../../components/pages/InputPage";
 const mapStateToProps = state => {
   console.log("state", state);
   return {
-    people: state.custom.countries
+    countries: state.custom.countries,
+    weathers: state.custom.weathers
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getPeople: customActions.getCountries
+      getCountries: customActions.getCountries,
+      getWeathers: customActions.getWeathers
     },
     dispatch
   );

@@ -6,8 +6,8 @@ export const actions = createActions({
     PROCESS_FAILURE: undefined,
     GET_COUNTRIES: undefined,
     GET_COUNTRIES_SUCCESS: undefined,
-    GET_WEATHER: undefined,
-    GET_WEATHER_SUCCESS: undefined,
+    GET_WEATHERS: undefined,
+    GET_WEATHERS_SUCCESS: undefined,
     ON_HOLIDAYS: undefined,
     ON_HOLIDAYS_SUCCESS: undefined
 });
@@ -17,7 +17,7 @@ const customReducer = handleActions(
         [actions.processFailure, handlers.processFailure],
         [actions.getCountries, handlers.getCountries],
         [actions.getCountriesSuccess, handlers.getCountriesSuccess],
-        [actions.getWeathers, handlers.getWeathersSuccess],
+        [actions.getWeathers, handlers.getWeathers],
         [actions.getWeathersSuccess, handlers.getWeathersSuccess],
         [actions.getHolidays, handlers.getHolidays],
         [actions.getHolidaysSuccess, handlers.getHolidaysSuccess]

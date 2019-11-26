@@ -12,9 +12,8 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import InputPage from "./components/pages/InputPage";
 
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as customActions } from "./store/custom";
+import ConnectedInputPage from "./containers/ConnectInputPage";
+import Navigation from "./components/Navigation";
 
 // const state = {
 //   router: {},
@@ -26,27 +25,6 @@ import { actions as customActions } from "./store/custom";
 //     holidays: []
 //   }
 // };
-
-const mapStateToProps = state => {
-  const props = {
-    countries: state.custom.countries
-  };
-  return props;
-};
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      getCountries: customActions.getCountries
-    },
-    dispatch
-  );
-};
-
-const ConnectedInputPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(InputPage);
 
 const configure = async () => {
   const history = createBrowserHistory();
@@ -67,7 +45,8 @@ const configure = async () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <ConnectedInputPage history={history} />
+      <Navigation history={history} />
+      {/* <ConnectedInputPage history={history} /> */}
     </Provider>,
     rootElement
   );

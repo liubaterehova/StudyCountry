@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { AutoComplete, Descriptions } from "antd";
+import { AutoComplete, Descriptions, Tabs, TabPane } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 
 export default class InputPage extends Component {
@@ -20,15 +20,13 @@ export default class InputPage extends Component {
 
   componentDidMount() {
     this.props.getCountries();
+    this.props.getWeathers();
   }
 
   onSearch = (value, nameOfCountries) => {
     if (!nameOfCountries.includes(value)) return;
     const searchObjIndex = nameOfCountries.indexOf(value);
-    console.log("index", searchObjIndex);
     const country = this.props.countries[searchObjIndex];
-    console.log(country);
-
     return this.setState({
       countryName: value,
       capital: country.capital,
@@ -39,20 +37,18 @@ export default class InputPage extends Component {
     });
   };
 
-  makeBeautifulTranslate(arr) {
+  makeArrfromObject(arr) {
     let keys = Object.keys(arr);
-    console.log("keys", keys);
     let newarr = keys.map(key => `${key}: ${arr[key]}`);
-    console.log(newarr);
     return this.makeArr(newarr);
   }
+
   makeArr(arr) {
-    return arr.map(item => <li>{item}</li>);
+    return arr.map(item => <li key={item}>{item}</li>);
   }
 
   render() {
-    const { countries, ...otherProps } = this.props;
-    console.log("this.state", this.state);
+    const { countries, weathers, ...otherProps } = this.props;
     const nameOfCountries = this.getCountriesName(countries);
     if (this.state.countryName) {
       const {
@@ -74,7 +70,7 @@ export default class InputPage extends Component {
             {weatherFor5Days}
           </Descriptions.Item>
           <Descriptions.Item label="Translations">
-            {this.makeBeautifulTranslate(translations)}
+            {this.makeArrfromObject(translations)}
           </Descriptions.Item>
           <Descriptions.Item label="Code">{code}</Descriptions.Item>
           <Descriptions.Item label="Population">{population}</Descriptions.Item>
@@ -89,7 +85,7 @@ export default class InputPage extends Component {
         style={{ width: 200 }}
         dataSource={nameOfCountries}
         placeholder="write country"
-        onSearch={value => this.onSearch(value, nameOfCountries)}
+        onChange={value => this.onSearch(value, nameOfCountries)}
         filterOption={(inputValue, option) =>
           option.props.children
             .toUpperCase()
