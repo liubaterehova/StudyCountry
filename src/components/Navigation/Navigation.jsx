@@ -8,7 +8,7 @@ export default class Navigation extends Component {
   constructor(props) {
     super(props);
 
-    this.newTabIndex = 0;
+    this.newTabIndex = 2;
     const panes = [
       { title: "Tab 1", content: <InputPage />, key: "1" },
       { title: "Tab 2", content: <InputPage />, key: "2" }
@@ -31,7 +31,11 @@ export default class Navigation extends Component {
   add = () => {
     const { panes } = this.state;
     const activeKey = `newTab${this.newTabIndex++}`;
-    panes.push({ title: "New Tab", content: "New Tab Pane", key: activeKey });
+    panes.push({
+      title: `Tab${this.newTabIndex}`,
+      content: <InputPage />,
+      key: activeKey
+    });
     this.setState({ panes, activeKey });
   };
 
