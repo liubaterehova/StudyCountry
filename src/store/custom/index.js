@@ -16,7 +16,7 @@ const customReducer = handleActions(
     new Map([
         [actions.processFailure, handlers.processFailure],
         [actions.getCountries, handlers.getCountries],
-        [actions.getCountriesSuccess, handlers.getCoutriesSuccess],
+        [actions.getCountriesSuccess, handlers.getCountriesSuccess],
         [actions.getWeathers, handlers.getWeathersSuccess],
         [actions.getWeathersSuccess, handlers.getWeathersSuccess],
         [actions.getHolidays, handlers.getHolidays],

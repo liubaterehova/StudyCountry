@@ -13,7 +13,7 @@ export default class InputPage extends Component {
 
   render() {
     const { countries, ...otherProps } = this.props;
-    console.log("countries", countries);
+    console.log("countriesInputPage", countries);
     console.log("this.props in InputPage", this.props);
     const nameOfCountries = this.getCountriesName(countries);
     return (

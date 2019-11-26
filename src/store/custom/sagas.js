@@ -10,7 +10,7 @@ function* getCountriesSaga({ payload }) {
 
         if (response.data) {
             console.log("response.data", response.data);
-            yield put(types.getCoutriesSuccess({ countries: response.data }));
+            yield put(types.getCountriesSuccess({ countries: response.data }));
         }
     } catch (error) {
         yield put(types.processFailure({ error }));

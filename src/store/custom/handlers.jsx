@@ -12,14 +12,14 @@ export const processFailure = (state, { payload }) => ({
 });
 
 export const getCountries = (state, { payload }) => {
-  console.log("getCountries", payload);
+  console.log("getCountriesinHandlers", state);
   return {
     ...state,
     isLoading: true
   };
 };
 
-export const getCoutriesSuccess = (state, { payload }) => {
+export const getCountriesSuccess = (state, { payload }) => {
   console.log("stateinInitialState", state);
   console.log("payload.countries", payload.countries);
   return {
