@@ -4,25 +4,39 @@ import {
   BASE_HOLIDAYS_URL
 } from "../index";
 
+import config from "../../config";
 import axios from "axios";
 
 const http = axios.create();
 
+function getPreviousYear() {
+  const year = new Date().getFullYear() - 1;
+  return year;
+}
+
 const makeCustomApi = ({ client, headersManager }) => ({
   getCountries: () => http.get(`${BASE_COUNTRIES_URL}`),
   getWeather: async city => {
-    const searchResult = await http.get(`${BASE_WEATHER_URL}location/search`, {
-      headers: {
-        "Access-Control-Allow-Origin": "https://www.metaweather.com/api"
-      },
-      params: { query: "london" }
-    });
+    console.log("city", city);
+    const searchResult = await http.get(
+      `https://cors-anywhere.herokuapp.com/${BASE_WEATHER_URL}location/search`,
+      {
+        params: { query: city }
+      }
+    );
 
+    console.log("searchResult.data", searchResult.data);
     const woeid = searchResult.data[0].woeid;
+    console.log("woeid", woeid);
 
-    return http.get(`${BASE_COUNTRIES_URL}location/${woeid}`);
+    return http.get(
+      `https://cors-anywhere.herokuapp.com/${BASE_WEATHER_URL}location/${woeid}`
+    );
   },
-  getHolidays: () => http.get(`${BASE_HOLIDAYS_URL}`)
+  getHolidays: country =>
+    http.get(`${BASE_HOLIDAYS_URL}`, {
+      params: { key: config.apiKey, country: country, year: getPreviousYear() }
+    })
 });
 
 export default makeCustomApi;

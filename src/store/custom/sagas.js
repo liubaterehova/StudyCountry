@@ -25,14 +25,14 @@ function* getWeathersSaga({ payload }) {
         console.log("getWeathersSaga", payload);
         let response;
         const custom = makeApi().custom;
-        response = yield call([custom, custom.getWeather, "london"]);
+        response = yield call([custom, custom.getWeather], payload);
 
         if (response.data) {
             console.log("response.dataWeathers", response.data);
-            yield put(types.getWeathersSuccess({ weathers: response.data }));
+            yield put(types.getWeathersSuccess({ weathers: response.data.consolidated_weather }));
         }
     } catch (error) {
-        console.log("error");
+        console.log("error", error);
         yield put(types.processFailure({ error }));
     }
 }
