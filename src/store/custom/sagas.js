@@ -6,7 +6,9 @@ function* getCountriesSaga({ payload }) {
     try {
         let response;
         const custom = makeApi().custom;
-        response = yield call([custom, custom.getCountries]);
+        console.log('custom', custom);
+        console.log('custom.getCountries', custom.getCountries().then((result) => result.data));
+        response = yield call([custom, custom.getCountries], payload);
 
         if (response.data) {
             yield put(types.getCountriesSuccess({ countries: response.data }));

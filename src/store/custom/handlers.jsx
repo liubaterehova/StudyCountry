@@ -31,8 +31,6 @@ export const getWeathers = (state, { payload }) => ({
 });
 
 export const getWeathersSuccess = (state, { payload }) => {
-  console.log("stateinInitialState", state);
-  console.log("handlersWeatherPayload", payload);
   return {
     ...state,
     isLoading: false,

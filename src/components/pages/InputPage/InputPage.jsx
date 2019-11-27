@@ -22,38 +22,41 @@ export default class InputPage extends Component {
   };
 
   componentDidMount() {
-    this.props.getCountries();
+    console.log("mount");
   }
 
   defineHolidays(country) {
-    const custom = makeApi().custom;
-    custom.getHolidays(country).then(result => {
-      console.log("Holidays", result.data.holidays);
-      const arrOfHolidays = result.data.holidays.map(item => item.name);
-      this.setState({
-        holidays: arrOfHolidays
-      });
-    });
+    console.log("holidays");
   }
 
-  onSearch = (value, nameOfCountries) => {
-    if (!nameOfCountries.includes(value)) return;
+  onSearch = value => {
+    console.log("countries");
+    this.props.getCountries(value);
+    console.log("countries", this.props.countries);
+    const arrOfNames = this.getCountriesName(this.props.countries);
+    if (arrOfNames.includes(value)) {
+    }
 
-    const searchObjIndex = nameOfCountries.indexOf(value);
-    const country = this.props.countries[searchObjIndex];
+    // this.props.getCountries(value);
+    // this.getCountriesName(this.props.countries);
 
-    this.defineHolidays(country.alpha2Code);
-    this.props.getWeathers(country.capital);
+    // if (!nameOfCountries.includes(value)) return;
 
-    this.setState({
-      countryName: value,
-      capital: country.capital,
-      population: country.population,
-      code: country.numericCode,
-      translations: country.translations,
-      coords: country.latlng,
-      alpha2Code: country.alpha2Code
-    });
+    // const searchObjIndex = nameOfCountries.indexOf(value);
+    // const country = this.props.countries[searchObjIndex];
+
+    // this.defineHolidays(country.alpha2Code);
+    // this.props.getWeathers(country.capital);
+
+    // this.setState({
+    //   countryName: value,
+    //   capital: country.capital,
+    //   population: country.population,
+    //   code: country.numericCode,
+    //   translations: country.translations,
+    //   coords: country.latlng,
+    //   alpha2Code: country.alpha2Code
+    // });
   };
 
   makeDayWeather(arr) {
