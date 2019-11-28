@@ -3,7 +3,7 @@ const initialState = {
   error: null,
   countries: [],
   weathers: [],
-  selectedCountries: []
+  selectedCountries: {}
 };
 
 export const processFailure = (state, { payload }) => ({
@@ -94,11 +94,14 @@ export const changeArrOfSelectedCountries = (state, { payload }) => {
 
 export const changeArrOfSelectedCountriesSuccess = (state, { payload }) => {
   console.log("payloadSelectedArrPayload", payload);
-  console.log("initialState.selectedCountries", initialState.selectedCountries);
+  console.log("initialState.selectedCountries", state.selectedCountries);
   return {
     ...state,
     isLoading: false,
-    selectedCountries: [...state.selectedCountries, payload]
+    selectedCountries: {
+      ...state.selectedCountries,
+      [payload.id]: payload.country
+    }
   };
 };
 
