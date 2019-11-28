@@ -2,7 +2,8 @@ const initialState = {
   isLoading: false,
   error: null,
   countries: [],
-  weathers: []
+  weathers: [],
+  selectedCountries: []
 };
 
 export const processFailure = (state, { payload }) => ({
@@ -82,6 +83,21 @@ export const changeArrOfCountriesSuccess = (state, { payload }) => {
     ...state,
     isLoading: false,
     countries: payload
+  };
+};
+export const changeArrOfSelectedCountries = (state, { payload }) => {
+  return {
+    ...state,
+    isLoading: true
+  };
+};
+
+export const changeArrOfSelectedCountriesSuccess = (state, { payload }) => {
+  console.log("end payloadSelectedArrPayload", payload);
+  return {
+    ...state,
+    isLoading: false,
+    selectedCountries: payload
   };
 };
 

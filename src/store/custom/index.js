@@ -14,6 +14,9 @@ export const actions = createActions({
     CLEAN_COUNTRIES_SUCCESS: undefined,
     CHANGE_ARR_OF_COUNTRIES: undefined,
     CHANGE_ARR_OF_COUNTRIES_SUCCESS: undefined,
+    CHANGE_ARR_OF_SELECTED_COUNTRIES: undefined,
+    CHANGE_ARR_OF_SELECTED_COUNTRIES_SUCCESS: undefined,
+
 });
 
 
@@ -30,6 +33,8 @@ const customReducer = handleActions(
         [actions.cleanCountries, handlers.cleanCountriesSuccess],
         [actions.changeArrOfCountries, handlers.changeArrOfCountries],
         [actions.changeArrOfCountries, handlers.changeArrOfCountriesSuccess],
+        [actions.changeArrOfSelectedCountries, handlers.changeArrOfSelectedCountries],
+        [actions.changeArrOfSelectedCountries, handlers.changeArrOfSelectedCountriesSuccess],
 
     ]),
     initialState

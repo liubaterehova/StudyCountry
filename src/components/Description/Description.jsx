@@ -12,7 +12,7 @@ class Description extends Component {
       translations,
       population
     } = this.props.country;
-    console.log(this.props);
+    console.log("this.propsinDescription", this.props);
     return (
       <Descriptions title="Country Info">
         <Descriptions.Item label="Country">{name}</Descriptions.Item>

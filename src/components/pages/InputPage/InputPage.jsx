@@ -7,16 +7,7 @@ export default class InputPage extends Component {
   id = 0;
   state = {
     inputcountry: "",
-    onChangeWorked: false,
-    arrOfNames: [],
-    countryName: "",
-    capital: "",
     weathers: [],
-    population: null,
-    code: null,
-    translations: [],
-    coords: "",
-    alpha2Code: "",
     holidays: []
   };
 
@@ -62,8 +53,10 @@ export default class InputPage extends Component {
       // arrOfObj[this.props.id].id = this.props.id;
       // this.id++;
       console.log("arrOfObjWithId", arrOfObj[0]);
-      this.props.changeArrOfCountries(arrOfObj);
-      console.log("oneElementProps", this.props.countries);
+      this.props.changeArrOfSelectedCountries(arrOfObj);
+
+      console.log("selectedCountries", this.props.selectedCountries);
+      debugger;
     } else {
       this.props.changeArrOfCountries(arrOfObj);
       console.log("changesArr", this.props.countries);

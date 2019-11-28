@@ -9,7 +9,8 @@ const mapStateToProps = state => {
   return {
     countries: state.custom.countries,
     weathers: state.custom.weathers,
-    isLoading: state.custom.isLoading
+    isLoading: state.custom.isLoading,
+    selectedCountries: state.custom.selectedCountries
   };
 };
 
@@ -19,7 +20,8 @@ const mapDispatchToProps = dispatch =>
       getCountries: customActions.getCountries,
       getWeathers: customActions.getWeathers,
       cleanCountries: customActions.cleanCountries,
-      changeArrOfCountries: customActions.changeArrOfCountries
+      changeArrOfCountries: customActions.changeArrOfCountries,
+      changeArrOfSelectedCountries: customActions.changeArrOfSelectedCountries
     },
     dispatch
   );

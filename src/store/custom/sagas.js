@@ -45,6 +45,12 @@ function* changeArrOfCountriesSaga({ payload }) {
     yield put(types.changeArrOfCountriesSuccess(payload));
 }
 
+function* changeArrOfSelectedCountriesSaga({ payload }) {
+    console.log('payloadChangeSelectedCountries', payload);
+    yield put(types.changeArrOfSelectedCountriesSuccess(payload));
+}
+
+
 function* cleanCountriesSaga({ payload }) {
     yield put(types.cleanCountriesSuccess(payload));
 }
@@ -54,6 +60,7 @@ const customSagas = [
     takeEvery(types.getWeathers, getWeathersSaga),
     takeEvery(types.cleanCountries, cleanCountriesSaga),
     takeEvery(types.changeArrOfCountries, changeArrOfCountriesSaga),
+    takeEvery(types.changeArrOfSelectedCountries, changeArrOfSelectedCountriesSaga),
 ];
 
 export default customSagas;

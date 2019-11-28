@@ -31,6 +31,7 @@ export default class Navigation extends Component {
   onChange = activeKey => {
     this.setState({ activeKey });
     console.log("new tab");
+    debugger;
   };
 
   onEdit = (targetKey, action) => {
