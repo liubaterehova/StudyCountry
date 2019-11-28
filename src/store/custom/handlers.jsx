@@ -10,6 +10,19 @@ export const processFailure = (state, { payload }) => ({
   error: "Process Failure"
 });
 
+export const cleanCountries = (state, { payload }) => {
+  console.log("cleanCountries");
+  return {
+    ...state
+  };
+};
+export const cleanCountriesSuccess = (state, { payload }) => {
+  console.log("cleanCountries", state);
+  return {
+    ...state,
+    countries: []
+  };
+};
 export const getCountries = (state, { payload }) => {
   return {
     ...state,
@@ -48,5 +61,25 @@ export const getHolidays = (state, { payload }) => ({
   ...state,
   isLoading: true
 });
+// export const changeArrOfCountriesSuccess = (state, { payload }) => ({
+//   ...state,
+//   isLoading: false,
+//   countries: payload.countries
+// });
+export const changeArrOfCountries = (state, { payload }) => {
+  return {
+    ...state,
+    isLoading: true
+  };
+};
+
+export const changeArrOfCountriesSuccess = (state, { payload }) => {
+  console.log("end payloadSuccessPayload", payload);
+  return {
+    ...state,
+    isLoading: false,
+    countries: payload
+  };
+};
 
 export default initialState;

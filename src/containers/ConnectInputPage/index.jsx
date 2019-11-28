@@ -8,7 +8,8 @@ const mapStateToProps = state => {
   console.log("state", state);
   return {
     countries: state.custom.countries,
-    weathers: state.custom.weathers
+    weathers: state.custom.weathers,
+    isLoading: state.custom.isLoading
   };
 };
 
@@ -16,7 +17,9 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getCountries: customActions.getCountries,
-      getWeathers: customActions.getWeathers
+      getWeathers: customActions.getWeathers,
+      cleanCountries: customActions.cleanCountries,
+      changeArrOfCountries: customActions.changeArrOfCountries
     },
     dispatch
   );

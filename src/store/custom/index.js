@@ -9,8 +9,13 @@ export const actions = createActions({
     GET_WEATHERS: undefined,
     GET_WEATHERS_SUCCESS: undefined,
     ON_HOLIDAYS: undefined,
-    ON_HOLIDAYS_SUCCESS: undefined
+    ON_HOLIDAYS_SUCCESS: undefined,
+    CLEAN_COUNTRIES: undefined,
+    CLEAN_COUNTRIES_SUCCESS: undefined,
+    CHANGE_ARR_OF_COUNTRIES: undefined,
+    CHANGE_ARR_OF_COUNTRIES_SUCCESS: undefined,
 });
+
 
 const customReducer = handleActions(
     new Map([
@@ -20,7 +25,12 @@ const customReducer = handleActions(
         [actions.getWeathers, handlers.getWeathers],
         [actions.getWeathersSuccess, handlers.getWeathersSuccess],
         [actions.getHolidays, handlers.getHolidays],
-        [actions.getHolidaysSuccess, handlers.getHolidaysSuccess]
+        [actions.getHolidaysSuccess, handlers.getHolidaysSuccess],
+        [actions.cleanCountries, handlers.cleanCountries],
+        [actions.cleanCountries, handlers.cleanCountriesSuccess],
+        [actions.changeArrOfCountries, handlers.changeArrOfCountries],
+        [actions.changeArrOfCountries, handlers.changeArrOfCountriesSuccess],
+
     ]),
     initialState
 );

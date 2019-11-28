@@ -1,12 +1,12 @@
 import { actions as types } from "./index";
-import { all, put, call, take, takeEvery } from "redux-saga/effects";
+import { put, call, takeEvery } from "redux-saga/effects";
 import makeApi from "../../api";
 
 function* getCountriesSaga({ payload }) {
     try {
         let response;
         const custom = makeApi().custom;
-        console.log('custom', custom);
+        console.log('customGetCountriesSaga', custom);
         console.log('custom.getCountries', custom.getCountries().then((result) => result.data));
         response = yield call([custom, custom.getCountries], payload);
 
@@ -39,10 +39,21 @@ function* getWeathersSaga({ payload }) {
     }
 }
 
+
+function* changeArrOfCountriesSaga({ payload }) {
+    console.log('payloadChange', payload);
+    yield put(types.changeArrOfCountriesSuccess(payload));
+}
+
+function* cleanCountriesSaga({ payload }) {
+    yield put(types.cleanCountriesSuccess(payload));
+}
 const customSagas = [
     takeEvery(types.getCountries, getCountriesSaga),
     // takeEvery(types.getHolidays, getHolidaysSaga),
-    takeEvery(types.getWeathers, getWeathersSaga)
+    takeEvery(types.getWeathers, getWeathersSaga),
+    takeEvery(types.cleanCountries, cleanCountriesSaga),
+    takeEvery(types.changeArrOfCountries, changeArrOfCountriesSaga),
 ];
 
 export default customSagas;

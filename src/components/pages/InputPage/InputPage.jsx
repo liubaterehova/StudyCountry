@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { AutoComplete, Descriptions } from "antd";
+import { AutoComplete, Descriptions, Spin } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-import makeApi from "../../../api";
-
+import Spinner from "../../spinner/";
+import Description from "../../Description";
 export default class InputPage extends Component {
+  id = 0;
   state = {
+    inputcountry: "",
+    arrOfNames: [],
     countryName: "",
     capital: "",
     weathers: [],
@@ -17,7 +20,6 @@ export default class InputPage extends Component {
   };
 
   getCountriesName = countries => {
-    console.log("countries", countries);
     return countries.map(country => country.name);
   };
 
@@ -29,35 +31,40 @@ export default class InputPage extends Component {
     console.log("holidays");
   }
 
-  onSearch = value => {
-    console.log("countries");
+  onChange = value => {
     this.props.getCountries(value);
-    console.log("countries", this.props.countries);
-    const arrOfNames = this.getCountriesName(this.props.countries);
-    if (arrOfNames.includes(value)) {
-    }
-
-    // this.props.getCountries(value);
-    // this.getCountriesName(this.props.countries);
-
-    // if (!nameOfCountries.includes(value)) return;
-
-    // const searchObjIndex = nameOfCountries.indexOf(value);
-    // const country = this.props.countries[searchObjIndex];
-
-    // this.defineHolidays(country.alpha2Code);
-    // this.props.getWeathers(country.capital);
-
-    // this.setState({
-    //   countryName: value,
-    //   capital: country.capital,
-    //   population: country.population,
-    //   code: country.numericCode,
-    //   translations: country.translations,
-    //   coords: country.latlng,
-    //   alpha2Code: country.alpha2Code
-    // });
+    this.setState({
+      inputcountry: value
+    });
   };
+  makenewArr() {
+    const arrOfObj = [];
+    for (let obj of this.props.countries) {
+      if (obj.name.includes(this.state.inputcountry)) {
+        arrOfObj.push(obj);
+      }
+    }
+  }
+  //   const arrOfNames = this.getCountriesName(this.props.countries);
+  //   this.setState({
+  //     arrOfNames: arrOfNames
+  //   });
+  //   //   if (!arrOfObj.length) {
+  //       this.props.cleanCountries();
+  //       // console.log("after clean", this.props.countries);
+  //     } else if (arrOfObj.length === 1) {
+  //       console.log("arrOfObj", arrOfObj[0]);
+  //       console.log("id", this.id);
+  //       arrOfObj[this.id].id = this.id;
+  //       this.id++;
+  //       console.log("arrOfObjWithId", arrOfObj[0]);
+  //       this.props.changeArrOfCountries(arrOfObj[0]);
+  //       console.log("oneElementProps", this.props.countries);
+  //     } else {
+  //       this.props.changeArrOfCountries(arrOfObj);
+  //       console.log("changesArr", this.props.countries);
+  //     }
+  // };
 
   makeDayWeather(arr) {
     console.log("arr", arr);
@@ -66,7 +73,6 @@ export default class InputPage extends Component {
         {item.applicable_date}: {Math.floor(item.the_temp)}°С
       </li>
     ));
-    console.log("newarr", newarr);
     return newarr;
   }
 
@@ -80,49 +86,39 @@ export default class InputPage extends Component {
     return arr.map(item => <li key={item}>{item}</li>);
   }
 
+  makeDataSource(countries) {
+    const res = countries
+      .map(country => country.name)
+      .filter(item => item.includes(this.state.inputcountry));
+    console.log("datasource", res);
+    return res;
+  }
+
   render() {
-    const { countries, weathers, ...otherProps } = this.props;
-    const nameOfCountries = this.getCountriesName(countries);
-    console.log("weathersProps", weathers);
-
-    if (this.state.countryName) {
+    const { countries, weathers, isLoading } = this.props;
+    // if (isLoading) {
+    //   return <Spin />;
+    // }
+    console.log("countries", countries);
+    if (this.props.countries.length === 1) {
       const {
-        countryName,
+        name,
         capital,
-        population,
-        code,
+        alpha2code,
+        latlng,
         translations,
-        coords,
-        holidays
-      } = this.state;
+        population
+      } = countries[0];
 
-      return (
-        <Descriptions title="Country Info">
-          <Descriptions.Item label="Country">{countryName}</Descriptions.Item>
-          <Descriptions.Item label="Capital">{capital}</Descriptions.Item>
-          <Descriptions.Item label="Weather">
-            {this.makeDayWeather(weathers)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Translations">
-            {this.makeArrfromObject(translations)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Code">{code}</Descriptions.Item>
-          <Descriptions.Item label="Holidays">
-            {this.makeArr(holidays)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Population">{population}</Descriptions.Item>
-          <Descriptions.Item label="coords">
-            {this.makeArr(coords)}
-          </Descriptions.Item>
-        </Descriptions>
-      );
+      return <Description country={countries[0]}></Description>;
     }
     return (
       <AutoComplete
         style={{ width: 200 }}
-        dataSource={nameOfCountries}
+        dataSource={this.makeDataSource(countries)}
         placeholder="write country"
-        onChange={value => this.onSearch(value, nameOfCountries)}
+        onChange={value => this.onChange(value)}
+        value={this.state.inputcountry}
         filterOption={(inputValue, option) =>
           option.props.children
             .toUpperCase()
