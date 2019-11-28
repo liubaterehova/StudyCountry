@@ -56,15 +56,16 @@ export default class InputPage extends Component {
       // this.id++;
       console.log("arrOfObjWithId", arrOfObj[0]);
       this.props.changeArrOfSelectedCountries(arrOfObj);
-      this.props.cleanCountries();
       console.log("selectedCountries", this.props.selectedCountries);
-      debugger;
     } else {
       this.props.changeArrOfCountries(arrOfObj);
       console.log("changesArr", this.props.countries);
     }
   }
-
+  componentWillUnmount() {
+    console.log("componenttWillunmount");
+    this.props.cleanCountries();
+  }
   makeDayWeather(arr) {
     console.log("arr", arr);
     let newarr = arr.map(item => (
