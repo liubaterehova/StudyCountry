@@ -7,6 +7,7 @@ export default class InputPage extends Component {
   id = 0;
   state = {
     inputcountry: "",
+    onChangeWorked: false,
     arrOfNames: [],
     countryName: "",
     capital: "",
@@ -34,9 +35,11 @@ export default class InputPage extends Component {
   onChange = value => {
     this.props.getCountries(value);
     this.setState({
-      inputcountry: value
+      inputcountry: value,
+      onChangeWorked: true
     });
   };
+
   makenewArr() {
     const arrOfObj = [];
     for (let obj of this.props.countries) {
@@ -44,27 +47,26 @@ export default class InputPage extends Component {
         arrOfObj.push(obj);
       }
     }
+    console.log("arrOfObj", arrOfObj);
+    return arrOfObj;
   }
-  //   const arrOfNames = this.getCountriesName(this.props.countries);
-  //   this.setState({
-  //     arrOfNames: arrOfNames
-  //   });
-  //   //   if (!arrOfObj.length) {
-  //       this.props.cleanCountries();
-  //       // console.log("after clean", this.props.countries);
-  //     } else if (arrOfObj.length === 1) {
-  //       console.log("arrOfObj", arrOfObj[0]);
-  //       console.log("id", this.id);
-  //       arrOfObj[this.id].id = this.id;
-  //       this.id++;
-  //       console.log("arrOfObjWithId", arrOfObj[0]);
-  //       this.props.changeArrOfCountries(arrOfObj[0]);
-  //       console.log("oneElementProps", this.props.countries);
-  //     } else {
-  //       this.props.changeArrOfCountries(arrOfObj);
-  //       console.log("changesArr", this.props.countries);
-  //     }
-  // };
+  putArrInProps(arrOfObj) {
+    if (!arrOfObj.length) {
+      this.props.cleanCountries();
+      console.log("after clean", this.props.countries);
+    } else if (arrOfObj.length === 1) {
+      console.log("arrOfObj", arrOfObj[0]);
+      console.log("id", this.id);
+      arrOfObj[this.id].id = this.id;
+      this.id++;
+      console.log("arrOfObjWithId", arrOfObj[0]);
+      this.props.changeArrOfCountries(arrOfObj);
+      console.log("oneElementProps", this.props.countries);
+    } else {
+      this.props.changeArrOfCountries(arrOfObj);
+      console.log("changesArr", this.props.countries);
+    }
+  }
 
   makeDayWeather(arr) {
     console.log("arr", arr);
@@ -74,6 +76,12 @@ export default class InputPage extends Component {
       </li>
     ));
     return newarr;
+  }
+  changeState() {
+    console.log("passed, value", this.state.countryName);
+    const arrOfObj = this.makenewArr();
+    this.putArrInProps(arrOfObj);
+    this.setState({ onChangeWorked: false });
   }
 
   makeArrfromObject(arr) {
@@ -87,30 +95,31 @@ export default class InputPage extends Component {
   }
 
   makeDataSource(countries) {
+    if (countries.length === undefined) return;
     const res = countries
       .map(country => country.name)
       .filter(item => item.includes(this.state.inputcountry));
+    if (countries.length === 1) {
+      console.log("countries[0]", countries[0]);
+      return countries[0];
+    }
     console.log("datasource", res);
     return res;
   }
 
   render() {
-    const { countries, weathers, isLoading } = this.props;
-    // if (isLoading) {
-    //   return <Spin />;
-    // }
-    console.log("countries", countries);
+    console.log("id", this.props.id);
+    const { countries, isLoading } = this.props;
+    if (isLoading) {
+      return <Spin />;
+    } else {
+      if (this.state.onChangeWorked) {
+        this.changeState();
+      }
+    }
     if (this.props.countries.length === 1) {
-      const {
-        name,
-        capital,
-        alpha2code,
-        latlng,
-        translations,
-        population
-      } = countries[0];
-
-      return <Description country={countries[0]}></Description>;
+      console.log("id", this.props.id);
+      return <Description country={countries[this.props.id]}></Description>;
     }
     return (
       <AutoComplete

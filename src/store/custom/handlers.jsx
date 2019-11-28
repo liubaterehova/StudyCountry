@@ -7,20 +7,23 @@ const initialState = {
 
 export const processFailure = (state, { payload }) => ({
   ...state,
-  error: "Process Failure"
+  error: "Process Failure",
+  isLoading: false
 });
 
 export const cleanCountries = (state, { payload }) => {
   console.log("cleanCountries");
   return {
-    ...state
+    ...state,
+    isLoading: false
   };
 };
 export const cleanCountriesSuccess = (state, { payload }) => {
   console.log("cleanCountries", state);
   return {
     ...state,
-    countries: []
+    countries: [],
+    isLoading: false
   };
 };
 export const getCountries = (state, { payload }) => {

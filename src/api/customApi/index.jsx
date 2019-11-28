@@ -17,6 +17,7 @@ function getPreviousYear() {
 const makeCustomApi = ({ client, headersManager }) => ({
   getCountries: async value => {
     console.log("city", value);
+    console.log(http.get(`${BASE_COUNTRIES_URL}${value}`));
     return await http.get(`${BASE_COUNTRIES_URL}${value}`);
   },
 
