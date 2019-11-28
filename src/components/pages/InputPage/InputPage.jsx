@@ -12,12 +12,10 @@ export default class InputPage extends Component {
     inputcountry: "",
     weathers: [],
     holidays: [],
-    id: ""
+    id: "",
+    obj: null
   };
 
-  getCountriesName = countries => {
-    return countries.map(country => country.name);
-  };
   componentWillMount() {
     console.log("willmount");
     this.setState({ id: this.props.id });
@@ -34,6 +32,7 @@ export default class InputPage extends Component {
   }
 
   onChange = value => {
+    console.log("change");
     this.props.getCountries(value);
     this.setState({
       inputcountry: value
@@ -45,7 +44,9 @@ export default class InputPage extends Component {
   makenewArr() {
     const arrOfObj = [];
     for (let obj of this.props.countries) {
-      if (obj.name.includes(this.state.inputcountry)) {
+      if (
+        obj.name.toLowerCase().includes(this.state.inputcountry.toLowerCase())
+      ) {
         arrOfObj.push(obj);
       }
     }
@@ -57,12 +58,12 @@ export default class InputPage extends Component {
       this.props.cleanCountries();
       console.log("after clean", this.props.countries);
     } else if (arrOfObj.length === 1) {
-      console.log("arrOfObj", arrOfObj[0]);
-      console.log("id", this.id);
       // arrOfObj[this.props.id].id = this.props.id;
       // this.id++;
+
       console.log("arrOfObjWithId", arrOfObj[0]);
       this.props.changeArrOfSelectedCountries(arrOfObj);
+      this.setState({ obj: arrOfObj });
       console.log("selectedCountries", this.props.selectedCountries);
     } else {
       this.props.changeArrOfCountries(arrOfObj);
@@ -86,6 +87,15 @@ export default class InputPage extends Component {
     return this.makeArr(newarr);
   };
 
+  onSelect = value => {
+    console.log("workWithSelect this.props.countries", this.props.countries);
+    const arrForSelect = this.props.countries.keys;
+    arrForSelect//   .filter(countryName => countryName.toLowerCase() === value.toLowerCase()); //   .map(country => country.name)
+    // console.log("arrForSelect", arrForSelect[0]);
+    //////////////вернуть обьект а не строку!!!
+    .this.props
+      .changeArrOfSelectedCountries(arrForSelect[0]);
+  };
   makeArr = arr => {
     return arr.map(item => <li key={item}>{item}</li>);
   };
@@ -95,8 +105,10 @@ export default class InputPage extends Component {
     //   return [];
     // }
     const res = countries
-      .map(country => country.name)
-      .filter(item => item.includes(this.state.inputcountry));
+      .map(country => country.name.toLowerCase())
+      .filter(item => {
+        return item.includes(this.state.inputcountry.toLowerCase());
+      });
     console.log("datasource", res);
     return res;
   };
@@ -108,7 +120,8 @@ export default class InputPage extends Component {
     return isLoading ? (
       <Spin />
     ) : this.props.countries.length === 1 &&
-      this.state.inputcountry === this.props.countries[0].name ? (
+      this.state.inputcountry.toLowerCase() ===
+        this.props.countries[0].name.toLowerCase() ? (
       <div>
         <AutoComplete
           style={{ width: 200 }}

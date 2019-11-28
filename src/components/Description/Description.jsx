@@ -11,7 +11,7 @@ class Description extends Component {
       latlng = "",
       translations = [],
       population = null
-    } = this.props.country;
+    } = this.props.country[0];
     console.log("this.propsinDescription", this.props);
     return (
       <Descriptions title="Country Info">
