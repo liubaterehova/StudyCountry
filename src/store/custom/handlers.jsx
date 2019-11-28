@@ -16,7 +16,7 @@ export const cleanCountries = (state, { payload }) => {
   console.log("cleanCountries");
   return {
     ...state,
-    isLoading: false
+    isLoading: true
   };
 };
 export const cleanCountriesSuccess = (state, { payload }) => {

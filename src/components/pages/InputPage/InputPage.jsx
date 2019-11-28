@@ -8,7 +8,8 @@ export default class InputPage extends Component {
   state = {
     inputcountry: "",
     weathers: [],
-    holidays: []
+    holidays: [],
+    id: ""
   };
 
   getCountriesName = countries => {
@@ -26,13 +27,14 @@ export default class InputPage extends Component {
   onChange = value => {
     this.props.getCountries(value);
     this.setState({
-      inputcountry: value,
-      onChangeWorked: true
+      inputcountry: value
     });
     const arrOfObj = this.makenewArr();
     this.putArrInProps(arrOfObj);
   };
-
+  componentWillMount() {
+    this.setState({ id: this.props.id });
+  }
   makenewArr() {
     const arrOfObj = [];
     for (let obj of this.props.countries) {
@@ -54,7 +56,7 @@ export default class InputPage extends Component {
       // this.id++;
       console.log("arrOfObjWithId", arrOfObj[0]);
       this.props.changeArrOfSelectedCountries(arrOfObj);
-
+      this.props.cleanCountries();
       console.log("selectedCountries", this.props.selectedCountries);
       debugger;
     } else {
@@ -97,7 +99,9 @@ export default class InputPage extends Component {
   }
 
   render() {
-    const { countries, isLoading } = this.props;
+    const { countries, isLoading, selectedCountries } = this.props;
+    console.log("selectedCountries", selectedCountries);
+    console.log("cleanCountries", this.props.countries);
     return isLoading ? (
       <Spin />
     ) : this.props.countries.length === 1 ? (
@@ -115,7 +119,7 @@ export default class InputPage extends Component {
               .indexOf(inputValue.toUpperCase()) !== -1
           }
         />
-        <Description country={countries[this.props.id]}></Description>
+        <Description country={selectedCountries[this.props.id]}></Description>
       </div>
     ) : (
       <div className="inputPage">
