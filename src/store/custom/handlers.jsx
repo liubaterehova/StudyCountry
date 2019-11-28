@@ -93,11 +93,12 @@ export const changeArrOfSelectedCountries = (state, { payload }) => {
 };
 
 export const changeArrOfSelectedCountriesSuccess = (state, { payload }) => {
-  console.log("end payloadSelectedArrPayload", payload);
+  console.log("payloadSelectedArrPayload", payload);
+  console.log("initialState.selectedCountries", initialState.selectedCountries);
   return {
     ...state,
     isLoading: false,
-    selectedCountries: payload
+    selectedCountries: [...state.selectedCountries, payload]
   };
 };
 

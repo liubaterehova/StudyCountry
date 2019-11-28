@@ -70,7 +70,7 @@ export default class InputPage extends Component {
     }
   }
 
-  makeDayWeather(arr) {
+  makeDayWeather = arr => {
     console.log("arr", arr);
     let newarr = arr.map(item => (
       <li key={item.id}>
@@ -78,30 +78,28 @@ export default class InputPage extends Component {
       </li>
     ));
     return newarr;
-  }
+  };
 
-  makeArrfromObject(arr) {
+  makeArrfromObject = arr => {
     const keys = Object.keys(arr);
     const newarr = keys.map(key => `${key}: ${arr[key]}`);
     return this.makeArr(newarr);
-  }
+  };
 
-  makeArr(arr) {
+  makeArr = arr => {
     return arr.map(item => <li key={item}>{item}</li>);
-  }
+  };
 
-  makeDataSource(countries) {
-    if (countries.length === undefined) return;
+  makeDataSource = countries => {
+    // if (countries.length === undefined) {
+    //   return [];
+    // }
     const res = countries
       .map(country => country.name)
       .filter(item => item.includes(this.state.inputcountry));
-    if (countries.length === 1) {
-      console.log("countries[0]", countries[0]);
-      return countries[0];
-    }
     console.log("datasource", res);
     return res;
-  }
+  };
 
   render() {
     const { countries, isLoading, selectedCountries } = this.props;
@@ -109,7 +107,8 @@ export default class InputPage extends Component {
     console.log("cleanCountries", this.props.countries);
     return isLoading ? (
       <Spin />
-    ) : this.props.countries.length === 1 ? (
+    ) : this.props.countries.length === 1 &&
+      this.state.inputcountry === this.props.countries[0].name ? (
       <div>
         <AutoComplete
           style={{ width: 200 }}

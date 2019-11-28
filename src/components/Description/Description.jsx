@@ -5,12 +5,12 @@ import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 class Description extends Component {
   render() {
     const {
-      name,
-      capital,
-      alpha2Code,
-      latlng,
-      translations,
-      population
+      name = "",
+      capital = "",
+      alpha2Code = "",
+      latlng = "",
+      translations = [],
+      population = null
     } = this.props.country;
     console.log("this.propsinDescription", this.props);
     return (
