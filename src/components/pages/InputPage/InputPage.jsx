@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { AutoComplete, Descriptions, Spin } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-import Spinner from "../../spinner/";
 import Description from "../../Description";
 export default class InputPage extends Component {
+  constructor(props) {
+    super(props);
+    this.props.cleanCountries();
+  }
   id = 0;
   state = {
     inputcountry: "",
@@ -15,11 +18,17 @@ export default class InputPage extends Component {
   getCountriesName = countries => {
     return countries.map(country => country.name);
   };
-
+  componentWillMount() {
+    console.log("willmount");
+    this.setState({ id: this.props.id });
+  }
   componentDidMount() {
     console.log("mount");
   }
-
+  componentWillUnmount() {
+    console.log("componenttWillunmount");
+    this.props.cleanCountries();
+  }
   defineHolidays(country) {
     console.log("holidays");
   }
@@ -32,9 +41,7 @@ export default class InputPage extends Component {
     const arrOfObj = this.makenewArr();
     this.putArrInProps(arrOfObj);
   };
-  componentWillMount() {
-    this.setState({ id: this.props.id });
-  }
+
   makenewArr() {
     const arrOfObj = [];
     for (let obj of this.props.countries) {
@@ -62,10 +69,7 @@ export default class InputPage extends Component {
       console.log("changesArr", this.props.countries);
     }
   }
-  componentWillUnmount() {
-    console.log("componenttWillunmount");
-    this.props.cleanCountries();
-  }
+
   makeDayWeather(arr) {
     console.log("arr", arr);
     let newarr = arr.map(item => (
