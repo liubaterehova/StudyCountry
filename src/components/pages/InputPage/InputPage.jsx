@@ -109,21 +109,12 @@ export default class InputPage extends Component {
 
   render() {
     const { countries, isLoading } = this.props;
-
-    // if (isLoading) {
-    //   return <Spin />;
-    // } else {
-    //   if (this.state.onChangeWorked) {
-    //     this.changeState();
-    //   }
-    // }
-    if (this.props.countries.length === 1) {
-      console.log("id", this.props.id);
-      return <Description country={countries[this.props.id]}></Description>;
-    }
-    return (
+    return isLoading ? (
+      <Spin />
+    ) : this.props.countries.length === 1 ? (
+      <Description country={countries[this.props.id]}></Description>
+    ) : (
       <div className="inputPage">
-        {isLoading && <Spin />}
         <AutoComplete
           style={{ width: 200 }}
           dataSource={this.makeDataSource(countries)}
