@@ -108,32 +108,35 @@ export default class InputPage extends Component {
   }
 
   render() {
-    console.log("id", this.props.id);
     const { countries, isLoading } = this.props;
-    if (isLoading) {
-      return <Spin />;
-    } else {
-      if (this.state.onChangeWorked) {
-        this.changeState();
-      }
-    }
+
+    // if (isLoading) {
+    //   return <Spin />;
+    // } else {
+    //   if (this.state.onChangeWorked) {
+    //     this.changeState();
+    //   }
+    // }
     if (this.props.countries.length === 1) {
       console.log("id", this.props.id);
       return <Description country={countries[this.props.id]}></Description>;
     }
     return (
-      <AutoComplete
-        style={{ width: 200 }}
-        dataSource={this.makeDataSource(countries)}
-        placeholder="write country"
-        onChange={value => this.onChange(value)}
-        value={this.state.inputcountry}
-        filterOption={(inputValue, option) =>
-          option.props.children
-            .toUpperCase()
-            .indexOf(inputValue.toUpperCase()) !== -1
-        }
-      />
+      <div className="inputPage">
+        {isLoading && <Spin />}
+        <AutoComplete
+          style={{ width: 200 }}
+          dataSource={this.makeDataSource(countries)}
+          placeholder="write country"
+          onChange={value => this.onChange(value)}
+          value={this.state.inputcountry}
+          filterOption={(inputValue, option) =>
+            option.props.children
+              .toUpperCase()
+              .indexOf(inputValue.toUpperCase()) !== -1
+          }
+        />
+      </div>
     );
   }
 }

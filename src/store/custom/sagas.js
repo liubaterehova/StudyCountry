@@ -6,14 +6,14 @@ function* getCountriesSaga({ payload }) {
     try {
         let response;
         const custom = makeApi().custom;
-        console.log('customGetCountriesSaga', custom);
-        console.log('custom.getCountries', custom.getCountries().then((result) => result.data));
         response = yield call([custom, custom.getCountries], payload);
 
         if (response.data) {
             yield put(types.getCountriesSuccess({ countries: response.data }));
         }
     } catch (error) {
+
+        console.log('error in getCountriesSaga');
         yield put(types.processFailure({ error }));
     }
 }
