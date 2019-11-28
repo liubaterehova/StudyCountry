@@ -38,6 +38,8 @@ export default class InputPage extends Component {
       inputcountry: value,
       onChangeWorked: true
     });
+    const arrOfObj = this.makenewArr();
+    this.putArrInProps(arrOfObj);
   };
 
   makenewArr() {
@@ -57,8 +59,8 @@ export default class InputPage extends Component {
     } else if (arrOfObj.length === 1) {
       console.log("arrOfObj", arrOfObj[0]);
       console.log("id", this.id);
-      arrOfObj[this.id].id = this.id;
-      this.id++;
+      // arrOfObj[this.props.id].id = this.props.id;
+      // this.id++;
       console.log("arrOfObjWithId", arrOfObj[0]);
       this.props.changeArrOfCountries(arrOfObj);
       console.log("oneElementProps", this.props.countries);
@@ -76,12 +78,6 @@ export default class InputPage extends Component {
       </li>
     ));
     return newarr;
-  }
-  changeState() {
-    console.log("passed, value", this.state.countryName);
-    const arrOfObj = this.makenewArr();
-    this.putArrInProps(arrOfObj);
-    this.setState({ onChangeWorked: false });
   }
 
   makeArrfromObject(arr) {
@@ -112,7 +108,22 @@ export default class InputPage extends Component {
     return isLoading ? (
       <Spin />
     ) : this.props.countries.length === 1 ? (
-      <Description country={countries[this.props.id]}></Description>
+      <div>
+        <AutoComplete
+          style={{ width: 200 }}
+          onChange={value => {
+            console.log("onchange");
+            return this.onChange(value);
+          }}
+          value={this.state.inputcountry}
+          filterOption={(inputValue, option) =>
+            option.props.children
+              .toUpperCase()
+              .indexOf(inputValue.toUpperCase()) !== -1
+          }
+        />
+        <Description country={countries[this.props.id]}></Description>
+      </div>
     ) : (
       <div className="inputPage">
         <AutoComplete
