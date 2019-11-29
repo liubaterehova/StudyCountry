@@ -81,7 +81,7 @@ export default class InputPage extends Component {
           <Description
             country={selectedCountries[this.props.id]}
             id={this.props.id}
-            getWeathers={this.props.getWeathers}
+            // getWeathers={this.props.getWeathers}
             getHolidays={this.props.getHolidays}
           />
         ) : null}
