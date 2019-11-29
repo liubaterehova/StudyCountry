@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Tabs, Button } from "antd";
-import InputPage from "../../containers/ConnectInputPage";
+import InputPage from "../../../containers/ConnectInputPage";
 
 const { TabPane } = Tabs;
 

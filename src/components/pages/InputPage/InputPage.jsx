@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AutoComplete, Spin } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-import Description from "../../Description";
+import Description from "../Description";
 export default class InputPage extends Component {
   constructor(props) {
     super(props);
