@@ -47,6 +47,7 @@ export default class InputPage extends Component {
         country: this.props.countries[0].capital,
         id: this.props.id
       });
+
       this.props.getHolidays({
         country: this.props.countries[0].alpha2Code,
         id: this.props.id

@@ -58,7 +58,7 @@ function* getWeathersSaga({ payload }) {
 
 function* getHolidaysSaga({ payload }) {
     try {
-
+        console.log('HolidaySaga');
         const custom = makeApi().custom;
         let response = yield call([custom, custom.getHolidays], payload.country);
         console.log(response);
@@ -66,12 +66,15 @@ function* getHolidaysSaga({ payload }) {
 
 
         if (response.data) {
+            console.log('responseinHolidays', response.data)
+            console.group('response.holiday', response.data.holidays)
             yield put(types.getHolidaysSuccess({
                 holidays: response.data.holidays,
                 id: payload.id
             }));
         }
     } catch (error) {
+        console.log('errorinHolidaySaga');
         yield put(types.processFailure({ error }));
     }
     // yield put(types.getHolidaysSuccess(payload));

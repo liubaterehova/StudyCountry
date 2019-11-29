@@ -13,8 +13,8 @@ import * as serviceWorker from "./serviceWorker";
 import InputPage from "./components/pages/InputPage";
 
 import ConnectedInputPage from "./containers/ConnectInputPage";
-import Navigation from "./components/Navigation";
-
+import Navigation from "./components/pages/Navigation";
+import Template from "./components/template";
 // const state = {
 //   router: {},
 //   custom: {
@@ -45,7 +45,7 @@ const configure = async () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Navigation history={history} />
+      <Template history={history} />
       {/* <ConnectedInputPage history={history} /> */}
     </Provider>,
     rootElement

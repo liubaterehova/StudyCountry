@@ -30,11 +30,11 @@ const customReducer = handleActions(
         [actions.getHolidays, handlers.getHolidays],
         [actions.getHolidaysSuccess, handlers.getHolidaysSuccess],
         [actions.cleanCountries, handlers.cleanCountries],
-        [actions.cleanCountries, handlers.cleanCountriesSuccess],
+        [actions.cleanCountriesSuccess, handlers.cleanCountriesSuccess],
         [actions.changeArrOfCountries, handlers.changeArrOfCountries],
-        [actions.changeArrOfCountries, handlers.changeArrOfCountriesSuccess],
+        [actions.changeArrOfCountriesSuccess, handlers.changeArrOfCountriesSuccess],
         [actions.changeArrOfSelectedCountries, handlers.changeArrOfSelectedCountries],
-        [actions.changeArrOfSelectedCountries, handlers.changeArrOfSelectedCountriesSuccess],
+        [actions.changeArrOfSelectedCountriesSuccess, handlers.changeArrOfSelectedCountriesSuccess],
 
     ]),
     initialState

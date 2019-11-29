@@ -38,7 +38,7 @@ const makeCustomApi = ({ client, headersManager }) => ({
   },
   getHolidays: country => {
     console.log("inApiCountry", country);
-    http.get(`${BASE_HOLIDAYS_URL}`, {
+    return http.get(`${BASE_HOLIDAYS_URL}`, {
       params: { key: config.apiKey, country: country, year: getPreviousYear() }
     });
   }

@@ -34,7 +34,7 @@ class Description extends Component {
       weathers = [],
       holidays = []
     } = this.props.country;
-    console.log("this.propsinDescription", this.props);
+    console.log("HOLIDAYSthis.propsinDescription", this.props.country);
     return (
       <Descriptions title="Country Info">
         <Descriptions.Item label="Country">{name}</Descriptions.Item>

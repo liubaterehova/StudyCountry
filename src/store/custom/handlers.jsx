@@ -48,10 +48,11 @@ export const getWeathers = (state, { payload }) => ({
 });
 
 export const getWeathersSuccess = (state, { payload }) => {
+  const sId = payload.id;
   let changedSelectedCountries = {
     ...state.selectedCountries,
-    [payload.id]: {
-      ...state.selectedCountries[payload.id],
+    [sId]: {
+      ...state.selectedCountries[sId],
       weathers: payload.weathers
     }
   };
@@ -69,17 +70,18 @@ export const getHolidays = (state, { payload }) => ({
 });
 
 export const getHolidaysSuccess = (state, { payload }) => {
-  let changedSelectedCountries = {
-    ...state.selectedContries,
-    [payload.id]: {
-      ...state.selectedContries[payload.id],
-      holidays: payload.holidays
-    }
+  let changedSelected = {
+    ...state.selectedContries
+  };
+  const cId = payload.id;
+  changedSelected[cId] = {
+    ...state.selectedCountries[cId],
+    holidays: payload.holidays
   };
   return {
     ...state,
     isLoading: false,
-    selectedContries: changedSelectedCountries
+    selectedContries: changedSelected
   };
 };
 // export const changeArrOfCountriesSuccess = (state, { payload }) => ({
