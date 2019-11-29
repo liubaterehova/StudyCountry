@@ -22,7 +22,6 @@ const makeCustomApi = ({ client, headersManager }) => ({
   },
 
   getWeather: async city => {
-    console.log("city", city);
     const searchResult = await http.get(
       `https://cors-anywhere.herokuapp.com/${BASE_WEATHER_URL}location/search`,
       {
@@ -30,7 +29,6 @@ const makeCustomApi = ({ client, headersManager }) => ({
       }
     );
 
-    console.log("searchResult.data", searchResult.data);
     const woeid = searchResult.data[0].woeid;
     console.log("woeid", woeid);
 
@@ -38,10 +36,12 @@ const makeCustomApi = ({ client, headersManager }) => ({
       `https://cors-anywhere.herokuapp.com/${BASE_WEATHER_URL}location/${woeid}`
     );
   },
-  getHolidays: country =>
+  getHolidays: country => {
+    console.log("inApiCountry", country);
     http.get(`${BASE_HOLIDAYS_URL}`, {
       params: { key: config.apiKey, country: country, year: getPreviousYear() }
-    })
+    });
+  }
 });
 
 export default makeCustomApi;

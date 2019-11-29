@@ -31,7 +31,8 @@ class Description extends Component {
       latlng = "",
       translations = [],
       population = null,
-      weathers = []
+      weathers = [],
+      holidays = []
     } = this.props.country;
     console.log("this.propsinDescription", this.props);
     return (
@@ -46,7 +47,7 @@ class Description extends Component {
         </Descriptions.Item>
         <Descriptions.Item label="Code">{alpha2Code}</Descriptions.Item>
         <Descriptions.Item label="Holidays">
-          {/* {this.makeArr(holidays)} */}
+          {this.makeArr(holidays)}
         </Descriptions.Item>
         <Descriptions.Item label="Population">{population}</Descriptions.Item>
         <Descriptions.Item label="coords">

@@ -27,30 +27,24 @@ function* getCountriesSaga({ payload }) {
         }
     } catch (error) {
 
-        console.log('error in getCountriesSaga');
         yield put(types.processFailure({ error }));
     }
 }
 
 function* changeArrOfSelectedCountriesSaga({ payload, ...test }) {
-    console.warn(test);
-    console.log('payloadChangeSelectedCountries', payload);
     yield put(types.changeArrOfSelectedCountriesSuccess(payload));
 }
 
-// function* getHolidaysSaga({ payload }) {
-//     yield put(types.getHolidaysSuccess(payload));
-// }
+
 
 function* getWeathersSaga({ payload }) {
     try {
-        console.log("getWeathersSaga", payload);
+
         let response;
         const custom = makeApi().custom;
         response = yield call([custom, custom.getWeather], payload.country);
 
         if (response.data) {
-            console.log("response.dataWeathers", response.data);
             yield put(types.getWeathersSuccess({
                 weathers: response.data.consolidated_weather,
                 id: payload.id
@@ -58,14 +52,33 @@ function* getWeathersSaga({ payload }) {
         }
     } catch (error) {
 
-        console.log("errorinWeatherSaga", error);
         yield put(types.processFailure({ error }));
     }
 }
 
+function* getHolidaysSaga({ payload }) {
+    try {
+
+        const custom = makeApi().custom;
+        let response = yield call([custom, custom.getHolidays], payload.country);
+        console.log(response);
+        console.log('response');
+
+
+        if (response.data) {
+            yield put(types.getHolidaysSuccess({
+                holidays: response.data.holidays,
+                id: payload.id
+            }));
+        }
+    } catch (error) {
+        yield put(types.processFailure({ error }));
+    }
+    // yield put(types.getHolidaysSuccess(payload));
+}
+
 
 function* changeArrOfCountriesSaga({ payload }) {
-    console.log('payloadChange', payload);
     yield put(types.changeArrOfCountriesSuccess(payload));
 }
 
@@ -77,7 +90,7 @@ function* cleanCountriesSaga({ payload }) {
 }
 const customSagas = [
     takeEvery(types.getCountries, getCountriesSaga),
-    // takeEvery(types.getHolidays, getHolidaysSaga),
+    takeEvery(types.getHolidays, getHolidaysSaga),
     takeEvery(types.getWeathers, getWeathersSaga),
     takeEvery(types.cleanCountries, cleanCountriesSaga),
     takeEvery(types.changeArrOfCountries, changeArrOfCountriesSaga),

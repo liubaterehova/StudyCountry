@@ -63,16 +63,25 @@ export const getWeathersSuccess = (state, { payload }) => {
   };
 };
 
-export const getHolidaysSuccess = (state, { payload }) => ({
-  ...state,
-  isLoading: false,
-  holidays: payload.holidays
-});
-
 export const getHolidays = (state, { payload }) => ({
   ...state,
   isLoading: true
 });
+
+export const getHolidaysSuccess = (state, { payload }) => {
+  let changedSelectedCountries = {
+    ...state.selectedContries,
+    [payload.id]: {
+      ...state.selectedContries[payload.id],
+      holidays: payload.holidays
+    }
+  };
+  return {
+    ...state,
+    isLoading: false,
+    selectedContries: changedSelectedCountries
+  };
+};
 // export const changeArrOfCountriesSuccess = (state, { payload }) => ({
 //   ...state,
 //   isLoading: false,

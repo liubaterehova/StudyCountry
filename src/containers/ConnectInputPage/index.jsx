@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch =>
     {
       getCountries: customActions.getCountries,
       getWeathers: customActions.getWeathers,
+      getHolidays: customActions.getHolidays,
       cleanCountries: customActions.cleanCountries,
       changeArrOfCountries: customActions.changeArrOfCountries,
       changeArrOfSelectedCountries: customActions.changeArrOfSelectedCountries
