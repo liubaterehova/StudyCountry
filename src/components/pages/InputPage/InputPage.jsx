@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { AutoComplete, Descriptions, Spin } from "antd";
+import { AutoComplete, Spin } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import Description from "../../Description";
 export default class InputPage extends Component {
@@ -16,20 +16,6 @@ export default class InputPage extends Component {
     obj: null
   };
 
-  componentWillMount() {
-    console.log("willmount");
-    this.setState({ id: this.props.id });
-  }
-
-  componentDidMount() {
-    console.log("mount");
-  }
-
-  componentWillUnmount() {
-    console.log("componenttWillunmount");
-    this.props.cleanCountries();
-  }
-
   componentDidUpdate(oldProps, oldState) {
     if (
       this.state.inputcountry === oldState.inputcountry &&
@@ -40,10 +26,6 @@ export default class InputPage extends Component {
     this.selectCountry();
   }
 
-  defineHolidays(country) {
-    console.log("holidays");
-  }
-
   onChange = value => {
     this.props.getCountries(value);
     this.setState({
@@ -52,7 +34,6 @@ export default class InputPage extends Component {
   };
 
   selectCountry = () => {
-    console.log("vokedSelectCountry");
     if (
       this.props.countries.length &&
       this.state.inputcountry.toLowerCase() ===
@@ -77,8 +58,7 @@ export default class InputPage extends Component {
 
   render() {
     const { countries, isLoading, selectedCountries } = this.props;
-    console.log("selectedCountries", selectedCountries);
-    console.log("checkCountries", this.props.countries);
+
     return (
       <div>
         <AutoComplete
@@ -98,7 +78,12 @@ export default class InputPage extends Component {
         {isLoading ? (
           <Spin />
         ) : selectedCountries[this.props.id] ? (
-          <Description country={selectedCountries[this.props.id]} />
+          <Description
+            country={selectedCountries[this.props.id]}
+            id={this.props.id}
+            getWeathers={this.props.getWeathers}
+            getHolidays={this.props.getHolidays}
+          />
         ) : null}
       </div>
     );

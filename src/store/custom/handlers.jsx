@@ -51,7 +51,13 @@ export const getWeathersSuccess = (state, { payload }) => {
   return {
     ...state,
     isLoading: false,
-    weathers: payload.weathers
+    selectedCountries: {
+      ...state.selectedCountries,
+      [payload.id]: {
+        ...state.selectedCountries[payload.id],
+        weathers: payload.weathers
+      }
+    }
   };
 };
 

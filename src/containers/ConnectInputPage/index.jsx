@@ -8,7 +8,6 @@ const mapStateToProps = state => {
   console.log("state", state);
   return {
     countries: state.custom.countries,
-    weathers: state.custom.weathers,
     isLoading: state.custom.isLoading,
     selectedCountries: state.custom.selectedCountries
   };
