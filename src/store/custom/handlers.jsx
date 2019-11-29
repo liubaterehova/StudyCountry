@@ -48,16 +48,18 @@ export const getWeathers = (state, { payload }) => ({
 });
 
 export const getWeathersSuccess = (state, { payload }) => {
+  let changedSelectedCountries = {
+    ...state.selectedCountries,
+    [payload.id]: {
+      ...state.selectedCountries[payload.id],
+      weathers: payload.weathers
+    }
+  };
+  console.log("changedSelected", changedSelectedCountries);
   return {
     ...state,
     isLoading: false,
-    selectedCountries: {
-      ...state.selectedCountries,
-      [payload.id]: {
-        ...state.selectedCountries[payload.id],
-        weathers: payload.weathers
-      }
-    }
+    selectedCountries: changedSelectedCountries
   };
 };
 

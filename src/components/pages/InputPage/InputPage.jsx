@@ -43,6 +43,10 @@ export default class InputPage extends Component {
         country: this.props.countries[0],
         id: this.props.id
       });
+      this.props.getWeathers({
+        country: this.props.countries[0].capital,
+        id: this.props.id
+      });
     }
   };
 
@@ -64,8 +68,8 @@ export default class InputPage extends Component {
         <AutoComplete
           style={{ width: 200 }}
           dataSource={this.makeDataSource(countries)}
-          onChange={value => {
-            console.log("onchange");
+          onSearch={value => {
+            console.log("onsearch");
             return this.onChange(value);
           }}
           value={this.state.inputcountry}
@@ -74,6 +78,15 @@ export default class InputPage extends Component {
               .toUpperCase()
               .indexOf(inputValue.toUpperCase()) !== -1
           }
+          onSelect={value => {
+            this.onChange(value);
+            console.log("onSelect");
+            console.log(this.props.selectedCountries);
+            // this.props.getWeathers({
+            //   country: this.props.selectedCountries[this.props.id].capital,
+            //   id: this.props.id
+            // });
+          }}
         />
         {isLoading ? (
           <Spin />
@@ -82,7 +95,7 @@ export default class InputPage extends Component {
             country={selectedCountries[this.props.id]}
             id={this.props.id}
             // getWeathers={this.props.getWeathers}
-            getHolidays={this.props.getHolidays}
+            // getHolidays={this.props.getHolidays}
           />
         ) : null}
       </div>

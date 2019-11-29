@@ -3,13 +3,6 @@ import { Descriptions } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 
 class Description extends Component {
-  // componentWillMount() {
-  //   this.props.getWeathers({
-  //     country: this.props.country.capital,
-  //     id: this.props.id
-  //   });
-  // }
-
   makeDayWeather = arr => {
     console.log("arr", arr);
     let newarr = arr.map(item => (
@@ -46,7 +39,7 @@ class Description extends Component {
         <Descriptions.Item label="Country">{name}</Descriptions.Item>
         <Descriptions.Item label="Capital">{capital}</Descriptions.Item>
         <Descriptions.Item label="Weather">
-          {/* {this.makeDayWeather(weathers)} */}
+          {this.makeDayWeather(weathers)}
         </Descriptions.Item>
         <Descriptions.Item label="Translations">
           {this.makeArrfromObject(translations)}

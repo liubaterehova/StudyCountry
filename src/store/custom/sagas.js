@@ -32,7 +32,8 @@ function* getCountriesSaga({ payload }) {
     }
 }
 
-function* changeArrOfSelectedCountriesSaga({ payload }) {
+function* changeArrOfSelectedCountriesSaga({ payload, ...test }) {
+    console.warn(test);
     console.log('payloadChangeSelectedCountries', payload);
     yield put(types.changeArrOfSelectedCountriesSuccess(payload));
 }
