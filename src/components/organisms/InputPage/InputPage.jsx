@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { AutoComplete, Spin } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-import Description from "../Description";
+import Description from "../../organisms/Description";
+
 export default class InputPage extends Component {
   constructor(props) {
     super(props);
@@ -10,8 +11,6 @@ export default class InputPage extends Component {
   id = 0;
   state = {
     inputcountry: "",
-    weathers: [],
-    holidays: [],
     id: "",
     obj: null
   };
@@ -87,10 +86,6 @@ export default class InputPage extends Component {
             this.onChange(value);
             console.log("onSelect");
             console.log(this.props.selectedCountries);
-            // this.props.getWeathers({
-            //   country: this.props.selectedCountries[this.props.id].capital,
-            //   id: this.props.id
-            // });
           }}
         />
         {isLoading ? (
@@ -99,8 +94,6 @@ export default class InputPage extends Component {
           <Description
             country={selectedCountries[this.props.id]}
             id={this.props.id}
-            // getWeathers={this.props.getWeathers}
-            // getHolidays={this.props.getHolidays}
           />
         ) : null}
       </div>

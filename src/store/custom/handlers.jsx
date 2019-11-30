@@ -1,124 +1,108 @@
 const initialState = {
-  isLoading: false,
+  isLoadingCountries: false,
   error: null,
-  countries: [],
-  weathers: [],
-  selectedCountries: {}
+  listCountries: [],
+  tabs: {}
 };
 
 export const processFailure = (state, { payload }) => ({
   ...state,
   error: "Process Failure",
-  isLoading: false
+  isLoadingCountries: false
 });
 
 export const cleanCountries = (state, { payload }) => {
-  console.log("cleanCountries");
   return {
     ...state,
-    isLoading: true
+    isLoadingCountries: true
   };
 };
 export const cleanCountriesSuccess = (state, { payload }) => {
-  console.log("cleanCountries", state);
   return {
     ...state,
-    countries: [],
-    isLoading: false
+    listCountries: [],
+    isLoadingCountries: false
   };
 };
 export const getCountries = (state, { payload }) => {
   return {
     ...state,
-    isLoading: true
+    isLoadingCountries: true
   };
 };
 
 export const getCountriesSuccess = (state, { payload }) => {
   return {
     ...state,
-    isLoading: false,
-    countries: payload.countries
+    isLoadingCountries: false,
+    listCountries: payload.countries
   };
 };
 
 export const getWeathers = (state, { payload }) => ({
   ...state,
-  isLoading: true
+  isLoadingCountries: true
 });
 
 export const getWeathersSuccess = (state, { payload }) => {
   const sId = payload.id;
   let changedSelectedCountries = {
-    ...state.selectedCountries,
+    ...state.tabs,
     [sId]: {
-      ...state.selectedCountries[sId],
+      ...state.tabs[sId],
       weathers: payload.weathers
     }
   };
-  console.log("changedSelected", changedSelectedCountries);
   return {
     ...state,
-    isLoading: false,
-    selectedCountries: changedSelectedCountries
+    isLoadingCountries: false,
+    tabs: changedSelectedCountries
   };
 };
 
 export const getHolidays = (state, { payload }) => ({
   ...state,
-  isLoading: true
+  isLoadingCountries: true
 });
 
 export const getHolidaysSuccess = (state, { payload }) => {
-  let changedSelected = {
-    ...state.selectedContries
-  };
-  const cId = payload.id;
-  changedSelected[cId] = {
-    ...state.selectedCountries[cId],
-    holidays: payload.holidays
-  };
   return {
     ...state,
-    isLoading: false,
-    selectedContries: changedSelected
+    isLoadingCountries: false,
+    tabs: {
+      ...state.tabs,
+      [payload.id]: { ...state.tabs[payload.id], holidays: payload.holidays }
+    }
   };
 };
-// export const changeArrOfCountriesSuccess = (state, { payload }) => ({
-//   ...state,
-//   isLoading: false,
-//   countries: payload.countries
-// });
+
 export const changeArrOfCountries = (state, { payload }) => {
   return {
     ...state,
-    isLoading: true
+    isLoadingCountries: true
   };
 };
 
 export const changeArrOfCountriesSuccess = (state, { payload }) => {
-  console.log("end payloadSuccessPayload", payload);
   return {
     ...state,
-    isLoading: false,
-    countries: payload
+    isLoadingCountries: false,
+    listCountries: payload
   };
 };
 export const changeArrOfSelectedCountries = (state, { payload }) => {
   return {
     ...state,
-    isLoading: true
+    isLoadingCountries: true
   };
 };
 
 export const changeArrOfSelectedCountriesSuccess = (state, { payload }) => {
-  console.log("payloadSelectedArrPayload", payload);
-  console.log("initialState.selectedCountries", state.selectedCountries);
   return {
     ...state,
-    isLoading: false,
-    selectedCountries: {
-      ...state.selectedCountries,
+    isLoadingCountries: false,
+    tabs: {
+      ...state.tabs,
       [payload.id]: payload.country
     }
   };

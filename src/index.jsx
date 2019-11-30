@@ -8,12 +8,9 @@ import { createBrowserHistory } from "history";
 import configureStore from "./store";
 
 import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import InputPage from "./components/pages/InputPage";
 
-import ConnectedInputPage from "./containers/ConnectInputPage";
-import Navigation from "./components/pages/Navigation";
+import Navigation from "./components/organisms/Navigation";
 import Template from "./components/template";
 // const state = {
 //   router: {},
@@ -45,8 +42,9 @@ const configure = async () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Template history={history} />
-      {/* <ConnectedInputPage history={history} /> */}
+      <Template history={history}>
+        <Navigation />
+      </Template>
     </Provider>,
     rootElement
   );

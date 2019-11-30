@@ -2,14 +2,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as customActions } from "../../store/custom";
 
-import InputPage from "../../components/pages/InputPage";
+import InputCountry from "../../components/organisms/InputCountry";
 
 const mapStateToProps = state => {
   console.log("state", state);
   return {
-    countries: state.custom.countries,
-    isLoading: state.custom.isLoading,
-    selectedCountries: state.custom.selectedCountries
+    listCountries: state.custom.listCountries,
+    isLoadingCountries: state.custom.isLoadingCountries,
+    tabs: state.custom.tabs
   };
 };
 
@@ -26,4 +26,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(InputPage);
+export default connect(mapStateToProps, mapDispatchToProps)(InputCountry);

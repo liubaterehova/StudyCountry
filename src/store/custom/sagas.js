@@ -77,7 +77,7 @@ function* getHolidaysSaga({ payload }) {
         console.log('errorinHolidaySaga');
         yield put(types.processFailure({ error }));
     }
-    // yield put(types.getHolidaysSuccess(payload));
+
 }
 
 
