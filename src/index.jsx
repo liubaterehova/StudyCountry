@@ -10,7 +10,7 @@ import configureStore from "./store";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-import Navigation from "./components/organisms/Navigation";
+import ConnectNavigation from "./containers/ConnectNavigation";
 import Template from "./components/template";
 // const state = {
 //   router: {},
@@ -43,7 +43,7 @@ const configure = async () => {
   ReactDOM.render(
     <Provider store={store}>
       <Template history={history}>
-        <Navigation />
+        <ConnectNavigation />
       </Template>
     </Provider>,
     rootElement

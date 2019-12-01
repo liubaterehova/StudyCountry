@@ -1,7 +1,6 @@
-import { actions as types } from "./index";
+import { actions } from "./index";
 import { put, call, takeEvery } from "redux-saga/effects";
 import makeApi from "../../api";
-
 
 const filterCountriesByName = (countries, value) => {
     const arrOfObj = [];
@@ -17,25 +16,29 @@ function* getCountriesSaga({ payload }) {
     try {
         let response;
         const custom = makeApi().custom;
-        response = yield call([custom, custom.getCountries], payload);
-
+        console.log('payloadInCountriesSaga', payload)
+        response = yield call([custom, custom.getCountries], payload.value);
+        console.log('responseInCountruesSaga', response.data)
         if (response.data) {
             // payload - это value , которое мы ввели
             //response.data -это ответ от сервера
 
-            yield put(types.getCountriesSuccess({ countries: filterCountriesByName(response.data, payload), }));
+            yield put(actions.getCountriesSuccess({
+                countries: filterCountriesByName(response.data, payload.value),
+                id: payload.id
+            }));
         }
     } catch (error) {
-
-        yield put(types.processFailure({ error }));
+        yield put(actions.processFailure({ error }));
     }
 }
 
-function* changeArrOfSelectedCountriesSaga({ payload, ...test }) {
-    yield put(types.changeArrOfSelectedCountriesSuccess(payload));
+function* addNewTabInfoSaga({ payload }) {
+    yield put(actions.addNewTabInfoSuccess({
+        id: payload.id,
+        country: payload.country
+    }));
 }
-
-
 
 function* getWeathersSaga({ payload }) {
     try {
@@ -45,14 +48,14 @@ function* getWeathersSaga({ payload }) {
         response = yield call([custom, custom.getWeather], payload.country);
 
         if (response.data) {
-            yield put(types.getWeathersSuccess({
+            yield put(actions.getWeathersSuccess({
                 weathers: response.data.consolidated_weather,
                 id: payload.id
             }));
         }
     } catch (error) {
 
-        yield put(types.processFailure({ error }));
+        yield put(actions.processFailure({ error }));
     }
 }
 
@@ -68,36 +71,26 @@ function* getHolidaysSaga({ payload }) {
         if (response.data) {
             console.log('responseinHolidays', response.data)
             console.group('response.holiday', response.data.holidays)
-            yield put(types.getHolidaysSuccess({
+            yield put(actions.getHolidaysSuccess({
                 holidays: response.data.holidays,
                 id: payload.id
             }));
         }
     } catch (error) {
         console.log('errorinHolidaySaga');
-        yield put(types.processFailure({ error }));
+        yield put(actions.processFailure({ error }));
     }
 
 }
 
 
-function* changeArrOfCountriesSaga({ payload }) {
-    yield put(types.changeArrOfCountriesSuccess(payload));
-}
 
 
-
-
-function* cleanCountriesSaga({ payload }) {
-    yield put(types.cleanCountriesSuccess(payload));
-}
 const customSagas = [
-    takeEvery(types.getCountries, getCountriesSaga),
-    takeEvery(types.getHolidays, getHolidaysSaga),
-    takeEvery(types.getWeathers, getWeathersSaga),
-    takeEvery(types.cleanCountries, cleanCountriesSaga),
-    takeEvery(types.changeArrOfCountries, changeArrOfCountriesSaga),
-    takeEvery(types.changeArrOfSelectedCountries, changeArrOfSelectedCountriesSaga),
+    takeEvery(actions.getCountries, getCountriesSaga),
+    takeEvery(actions.getHolidays, getHolidaysSaga),
+    takeEvery(actions.getWeathers, getWeathersSaga),
+    takeEvery(actions.addNewTabInfo, addNewTabInfoSaga),
 ];
 
 export default customSagas;

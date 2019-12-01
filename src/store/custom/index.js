@@ -10,10 +10,8 @@ export const actions = createActions({
     GET_WEATHERS_SUCCESS: undefined,
     GET_HOLIDAYS: undefined,
     GET_HOLIDAYS_SUCCESS: undefined,
-    CLEAN_COUNTRIES: undefined,
-    CLEAN_COUNTRIES_SUCCESS: undefined,
-    CHANGE_ARR_OF_COUNTRIES: undefined,
-    CHANGE_ARR_OF_COUNTRIES_SUCCESS: undefined,
+    ADD_NEW_TAB_INFO: undefined,
+    ADD_NEW_TAB_INFO_SUCCESS: undefined,
     CHANGE_ARR_OF_SELECTED_COUNTRIES: undefined,
     CHANGE_ARR_OF_SELECTED_COUNTRIES_SUCCESS: undefined,
 
@@ -29,12 +27,8 @@ const customReducer = handleActions(
         [actions.getWeathersSuccess, handlers.getWeathersSuccess],
         [actions.getHolidays, handlers.getHolidays],
         [actions.getHolidaysSuccess, handlers.getHolidaysSuccess],
-        [actions.cleanCountries, handlers.cleanCountries],
-        [actions.cleanCountriesSuccess, handlers.cleanCountriesSuccess],
-        [actions.changeArrOfCountries, handlers.changeArrOfCountries],
-        [actions.changeArrOfCountriesSuccess, handlers.changeArrOfCountriesSuccess],
-        [actions.changeArrOfSelectedCountries, handlers.changeArrOfSelectedCountries],
-        [actions.changeArrOfSelectedCountriesSuccess, handlers.changeArrOfSelectedCountriesSuccess],
+        [actions.addNewTabInfo, handlers.addNewTabInfo],
+        [actions.addNewTabInfoSuccess, handlers.addNewTabInfoSuccess],
 
     ]),
     initialState

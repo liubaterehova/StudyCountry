@@ -4,10 +4,6 @@ import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import Description from "../../organisms/Description";
 
 export default class InputPage extends Component {
-  constructor(props) {
-    super(props);
-    this.props.cleanCountries();
-  }
   id = 0;
   state = {
     inputcountry: "",
@@ -26,7 +22,7 @@ export default class InputPage extends Component {
   }
 
   onChange = value => {
-    this.props.getCountries(value);
+    this.props.getCountries({ id: this.props.id, value: value });
     this.setState({
       inputcountry: value
     });
@@ -38,7 +34,7 @@ export default class InputPage extends Component {
       this.state.inputcountry.toLowerCase() ===
         this.props.countries[0].name.toLowerCase()
     ) {
-      this.props.changeArrOfSelectedCountries({
+      this.props.addNewTabInfo({
         country: this.props.countries[0],
         id: this.props.id
       });

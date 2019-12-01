@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Tabs, Button } from "antd";
-import InputCountry from "../../../containers/ConnectInputCountry";
-
+import InputCountry from "../InputCountry";
 const { TabPane } = Tabs;
 
 export default class Navigation extends Component {
@@ -12,13 +11,16 @@ export default class Navigation extends Component {
     const panes = [
       {
         title: "Tab 1",
-        content: <InputCountry id="0" />,
+        content: (
+          <InputCountry
+            id="0"
+            listCountries={this.props.tabs["0"].listCountries}
+            isCountriesLoading={this.props.tabs["0"].isCountriesLoading}
+            getCountries={this.props.getCountries}
+            addNewTabInfo={this.props.addNewTabInfo}
+          />
+        ),
         key: "1"
-      },
-      {
-        title: "Tab 2",
-        content: <InputCountry id="1" />,
-        key: "2"
       }
     ];
 
@@ -56,6 +58,7 @@ export default class Navigation extends Component {
         lastIndex = i - 1;
       }
     });
+
     const panes = this.state.panes.filter(pane => pane.key !== targetKey);
     if (panes.length && activeKey === targetKey) {
       if (lastIndex >= 0) {
