@@ -3,7 +3,6 @@ import { bindActionCreators } from "redux";
 import { actions as customActions } from "../../store/custom";
 
 import Navigation from "../../components/organisms/Navigation";
-import { Component } from "react";
 
 const mapStateToProps = (state, props) => {
   console.log("stateTabsInConnect", state);
@@ -18,7 +17,9 @@ const mapDispatchToProps = dispatch =>
       getCountries: customActions.getCountries,
       getWeathers: customActions.getWeathers,
       getHolidays: customActions.getHolidays,
-      addNewTabInfo: customActions.addNewTabInfo
+      addNewTabInfo: customActions.addNewTabInfo,
+      add: customActions.addTab,
+      remove: customActions.removeTab
     },
     dispatch
   );

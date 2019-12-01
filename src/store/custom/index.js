@@ -14,6 +14,8 @@ export const actions = createActions({
     ADD_NEW_TAB_INFO_SUCCESS: undefined,
     CHANGE_ARR_OF_SELECTED_COUNTRIES: undefined,
     CHANGE_ARR_OF_SELECTED_COUNTRIES_SUCCESS: undefined,
+    REMOVE_TAB: undefined,
+    ADD_TAB: undefined,
 
 });
 
@@ -29,6 +31,8 @@ const customReducer = handleActions(
         [actions.getHolidaysSuccess, handlers.getHolidaysSuccess],
         [actions.addNewTabInfo, handlers.addNewTabInfo],
         [actions.addNewTabInfoSuccess, handlers.addNewTabInfoSuccess],
+        [actions.addTab, handlers.addTab],
+        [actions.removeTab, handlers.removeTab]
 
     ]),
     initialState

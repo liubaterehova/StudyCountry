@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Descriptions } from "antd";
+import { Descriptions, Spin } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 
 class Description extends Component {
@@ -13,10 +13,16 @@ class Description extends Component {
     return newarr;
   };
 
-  makeArrfromObject = arr => {
+  makeTranslationsList = arr => {
     const keys = Object.keys(arr);
     const newarr = keys.map(key => `${key}: ${arr[key]}`);
     return this.makeArr(newarr);
+  };
+
+  makeHolidaysList = holidays => {
+    return holidays.map((holiday, index) => (
+      <li key={index}>{holiday.name}</li>
+    ));
   };
 
   makeArr = arr => {
@@ -25,29 +31,37 @@ class Description extends Component {
 
   render() {
     const {
+      country,
+      weathers,
+      holidays,
+      isWeathersLoading,
+      isHolidaysLoading
+    } = this.props;
+
+    const {
       name = "",
       capital = "",
       alpha2Code = "",
       latlng = "",
       translations = [],
-      population = null,
-      weathers = [],
-      holidays = []
-    } = this.props.country;
+      population = null
+    } = country;
+
     console.log("HOLIDAYSthis.propsinDescription", this.props.country);
+
     return (
       <Descriptions title="Country Info">
         <Descriptions.Item label="Country">{name}</Descriptions.Item>
         <Descriptions.Item label="Capital">{capital}</Descriptions.Item>
         <Descriptions.Item label="Weather">
-          {this.makeDayWeather(weathers)}
+          {isWeathersLoading ? <Spin /> : this.makeDayWeather(weathers)}
         </Descriptions.Item>
         <Descriptions.Item label="Translations">
-          {this.makeArrfromObject(translations)}
+          {this.makeTranslationsList(translations)}
         </Descriptions.Item>
         <Descriptions.Item label="Code">{alpha2Code}</Descriptions.Item>
         <Descriptions.Item label="Holidays">
-          {/* {this.makeArr(holidays)} */}
+          {isHolidaysLoading ? <Spin /> : this.makeHolidaysList(holidays)}
         </Descriptions.Item>
         <Descriptions.Item label="Population">{population}</Descriptions.Item>
         <Descriptions.Item label="coords">

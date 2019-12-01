@@ -37,6 +37,16 @@ export default class InputCountry extends Component {
         country: this.props.listCountries[0],
         id: this.props.id
       });
+
+      this.props.getWeathers({
+        capital: this.props.listCountries[0].capital,
+        id: this.props.id
+      });
+
+      this.props.getHolidays({
+        country: this.props.listCountries[0].alpha2Code,
+        id: this.props.id
+      });
     }
   };
 
@@ -50,7 +60,7 @@ export default class InputCountry extends Component {
   };
 
   render() {
-    const { listCountries, isLoadingCountries } = this.props;
+    const { listCountries, isCountriesLoading } = this.props;
     return (
       <div>
         <AutoComplete
@@ -69,7 +79,7 @@ export default class InputCountry extends Component {
             this.onChange(value);
           }}
         />
-        {isLoadingCountries ? <Spin /> : null}
+        {isCountriesLoading ? <Spin /> : null}
       </div>
     );
   }

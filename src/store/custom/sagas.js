@@ -42,11 +42,10 @@ function* addNewTabInfoSaga({ payload }) {
 
 function* getWeathersSaga({ payload }) {
     try {
-
-        let response;
         const custom = makeApi().custom;
-        response = yield call([custom, custom.getWeather], payload.country);
+        let response = yield call([custom, custom.getWeather], payload.capital);
 
+        //console.log('getWeathersSaga response', response)
         if (response.data) {
             yield put(actions.getWeathersSuccess({
                 weathers: response.data.consolidated_weather,
@@ -54,7 +53,7 @@ function* getWeathersSaga({ payload }) {
             }));
         }
     } catch (error) {
-
+        console.error('getWeathersSaga error', error);
         yield put(actions.processFailure({ error }));
     }
 }
